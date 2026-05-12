@@ -22,10 +22,10 @@ export default function TaskTable({ tasks, onUpdate, onDelete }) {
           {tasks.map((task) => (
             <tr key={task.id} className="border-t border-line align-top">
               <td className="px-2 py-2">
-                <input className="table-input font-semibold" value={task.title} onChange={(event) => onUpdate(task.id, "title", event.target.value)} />
+                <input className="table-input font-semibold" value={task.title || ""} onChange={(event) => onUpdate(task.id, "title", event.target.value)} />
               </td>
               <td className="px-2 py-2">
-                <select className="table-select" value={task.status} onChange={(event) => onUpdate(task.id, "status", event.target.value)}>
+                <select className="table-select" value={task.status || "未开始"} onChange={(event) => onUpdate(task.id, "status", event.target.value)}>
                   {statuses.map((status) => (
                     <option key={status} value={status}>
                       {status}
@@ -37,7 +37,7 @@ export default function TaskTable({ tasks, onUpdate, onDelete }) {
                 </div>
               </td>
               <td className="px-2 py-2">
-                <select className="table-select" value={task.owner} onChange={(event) => onUpdate(task.id, "owner", event.target.value)}>
+                <select className="table-select" value={task.owner || "徐瑞"} onChange={(event) => onUpdate(task.id, "owner", event.target.value)}>
                   {owners.map((owner) => (
                     <option key={owner} value={owner}>
                       {owner}
@@ -46,7 +46,7 @@ export default function TaskTable({ tasks, onUpdate, onDelete }) {
                 </select>
               </td>
               <td className="px-2 py-2">
-                <input className="table-input" type="date" value={task.dueDate} onChange={(event) => onUpdate(task.id, "dueDate", event.target.value)} />
+                <input className="table-input" type="date" value={task.dueDate || task.due_date || ""} onChange={(event) => onUpdate(task.id, "dueDate", event.target.value)} />
               </td>
               <td className="px-3 py-4">
                 <ProgressBar value={task.progress} />
@@ -55,12 +55,16 @@ export default function TaskTable({ tasks, onUpdate, onDelete }) {
                   type="range"
                   min="0"
                   max="100"
-                  value={task.progress}
+                  value={Number(task.progress) || 0}
                   onChange={(event) => onUpdate(task.id, "progress", Number(event.target.value))}
                 />
               </td>
               <td className="px-2 py-2">
-                <textarea className="table-input min-h-20 resize-y" value={task.remark} onChange={(event) => onUpdate(task.id, "remark", event.target.value)} />
+                <textarea
+                  className="table-input min-h-20 resize-y"
+                  value={task.notes || task.remark || ""}
+                  onChange={(event) => onUpdate(task.id, "notes", event.target.value)}
+                />
               </td>
               <td className="px-3 py-3">
                 <button className="rounded-md p-2 text-muted hover:bg-red-50 hover:text-red-700" onClick={() => onDelete(task.id)} title="删除">

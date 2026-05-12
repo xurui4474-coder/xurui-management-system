@@ -1,3 +1,5 @@
+import { useEffect, useMemo, useState } from "react";
+import { BrowserRouter, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./components/Dashboard";
 import BusinessBoard from "./components/BusinessBoard";
@@ -5,8 +7,9 @@ import ProductTable from "./components/ProductTable";
 import WeeklyReviewTable from "./components/WeeklyReviewTable";
 import DataBoard from "./components/DataBoard";
 import LoginPage from "./components/LoginPage";
+import BoardPage from "./pages/BoardPage";
 import { businessSections } from "./data/initialData";
-import { useEffect, useMemo, useState } from "react";
+import { boardKeyByUuid } from "./data/boardConfig";
 import { isSupabaseConfigured, supabase } from "./lib/supabase";
 import {
   deleteProduct,
@@ -31,8 +34,29 @@ const boardMeta = {
   risks: { title: "风险问题记录", subtitle: "集中记录库存、广告、交付、素材、供应链等风险与解决进度" },
 };
 
-export default function App() {
-  const [active, setActive] = useState("dashboard");
+const pathById = {
+  dashboard: "/",
+  selfAmazon: "/self-amazon",
+  agencyAmazon: "/agency-amazon",
+  tiktok: "/tiktok-us",
+  site: "/site",
+  board: "/board",
+  products: "/products",
+  reviews: "/weekly-reviews",
+  todos: "/todos",
+  risks: "/risks",
+  data: "/data",
+};
+
+const idByPath = Object.entries(pathById).reduce((result, [id, path]) => {
+  result[path] = id;
+  return result;
+}, {});
+
+function AppContent() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const active = idByPath[location.pathname] || "dashboard";
   const [session, setSession] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
   const [dataLoading, setDataLoading] = useState(false);
@@ -45,7 +69,7 @@ export default function App() {
   const tasksMap = useMemo(() => {
     const grouped = { selfAmazon: [], agencyAmazon: [], tiktok: [], site: [], todos: [], risks: [] };
     tasks.forEach((task) => {
-      const key = task.boardId || "todos";
+      const key = boardKeyByUuid[task.boardId] || task.boardId || "todos";
       grouped[key] = [...(grouped[key] || []), task];
     });
     return grouped;
@@ -71,7 +95,7 @@ export default function App() {
   useEffect(() => {
     if (!isSupabaseConfigured) {
       setAuthLoading(false);
-      return;
+      return undefined;
     }
 
     supabase.auth.getSession().then(({ data }) => {
@@ -89,7 +113,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (!session) return;
+    if (!session) return undefined;
     refreshData();
 
     const channel = supabase
@@ -203,11 +227,16 @@ export default function App() {
     }
   };
 
-  const renderContent = () => {
+  const handleNavigate = (id) => {
+    navigate(pathById[id] || "/");
+  };
+
+  const renderLegacyContent = () => {
     if (active === "dashboard") return <Dashboard tasksMap={tasksMap} metrics={metrics} />;
     if (active === "products") return <ProductTable products={products} onAddProduct={addProduct} onUpdateProduct={saveProduct} onDeleteProduct={removeProduct} />;
     if (active === "reviews") return <WeeklyReviewTable reviews={reviews} onAddReview={addReview} onUpdateReview={saveReview} onDeleteReview={removeReview} />;
     if (active === "data") return <DataBoard metrics={metrics} onUpdateMetric={saveMetric} />;
+
     const meta = boardMeta[active];
     if (meta) {
       return (
@@ -220,6 +249,7 @@ export default function App() {
         />
       );
     }
+
     return <Dashboard tasksMap={tasksMap} metrics={metrics} />;
   };
 
@@ -233,7 +263,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-cream">
-      <Sidebar active={active} onChange={setActive} />
+      <Sidebar active={active} onChange={handleNavigate} />
       <main className="ml-64 min-h-screen px-6 py-5">
         <div className="mb-5 flex items-center justify-between rounded-lg border border-line bg-paper px-4 py-3 shadow-soft">
           <div>
@@ -257,10 +287,23 @@ export default function App() {
             </button>
           </div>
         </div>
+
         {error && <div className="mb-4 rounded-lg border border-red-100 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">{error}</div>}
         {dataLoading && <div className="mb-4 rounded-lg border border-line bg-paper px-4 py-3 text-sm text-muted">正在同步 Supabase 数据...</div>}
-        {renderContent()}
+
+        <Routes>
+          <Route path="/board" element={<BoardPage />} />
+          <Route path="*" element={renderLegacyContent()} />
+        </Routes>
       </main>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   );
 }

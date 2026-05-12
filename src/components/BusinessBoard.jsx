@@ -4,6 +4,7 @@ import { exportToCsv } from "../utils/csv";
 import Filters from "./Filters";
 import PageHeader from "./PageHeader";
 import TaskTable from "./TaskTable";
+import { boardUuidByKey } from "../data/boardConfig";
 
 const emptyTask = {
   title: "新任务",
@@ -11,6 +12,7 @@ const emptyTask = {
   owner: "徐瑞",
   dueDate: new Date().toISOString().slice(0, 10),
   progress: 0,
+  notes: "",
   remark: "",
 };
 
@@ -22,7 +24,8 @@ export default function BusinessBoard({ id, title, subtitle, tasks, setTasks }) 
   const filteredTasks = useMemo(() => {
     const keyword = search.trim().toLowerCase();
     return tasks.filter((task) => {
-      const matchedSearch = !keyword || [task.title, task.remark, task.owner, task.status].some((field) => String(field).toLowerCase().includes(keyword));
+      const taskNotes = task.notes || task.remark || "";
+      const matchedSearch = !keyword || [task.title, taskNotes, task.owner, task.status].some((field) => String(field).toLowerCase().includes(keyword));
       const matchedStatus = !status || task.status === status;
       const matchedOwner = !owner || task.owner === owner;
       return matchedSearch && matchedStatus && matchedOwner;
@@ -30,12 +33,17 @@ export default function BusinessBoard({ id, title, subtitle, tasks, setTasks }) 
   }, [tasks, search, status, owner]);
 
   const addTask = () => {
-    setTasks({ ...emptyTask, boardId: id });
+    const boardUuid = boardUuidByKey[id] || id;
+    setTasks({ ...emptyTask, boardId: boardUuid, board_id: boardUuid });
   };
 
   const updateTask = (taskId, field, value) => {
     const current = tasks.find((task) => task.id === taskId);
-    if (current) setTasks({ ...current, [field]: value });
+    if (!current) return;
+    const next = { ...current, [field]: value };
+    if (field === "notes") next.remark = value;
+    if (field === "remark") next.notes = value;
+    setTasks(next);
   };
 
   const deleteTask = (taskId) => {

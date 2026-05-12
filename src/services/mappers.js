@@ -1,25 +1,31 @@
 export function taskFromDb(row) {
+  const notes = row.notes || row.remark || "";
   return {
     id: row.id,
     boardId: row.board_id,
+    board_id: row.board_id,
+    module: row.module || "",
     title: row.title,
     status: row.status,
     owner: row.owner,
     dueDate: row.due_date || "",
-    progress: row.progress,
-    remark: row.remark,
+    due_date: row.due_date || "",
+    progress: Number(row.progress) || 0,
+    notes,
+    remark: notes,
   };
 }
 
 export function taskToDb(task) {
   return {
-    board_id: task.boardId,
-    title: task.title,
-    status: task.status,
-    owner: task.owner,
-    due_date: task.dueDate || null,
+    board_id: task.boardId || task.board_id,
+    module: task.module || "",
+    title: task.title || task.taskName || "",
+    status: task.status || "未开始",
+    owner: task.owner || "徐瑞",
+    due_date: task.dueDate || task.due_date || task.deadline || null,
     progress: Number(task.progress) || 0,
-    remark: task.remark || "",
+    notes: task.notes || task.remark || "",
   };
 }
 
