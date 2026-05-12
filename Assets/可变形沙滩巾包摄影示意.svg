@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1400" viewBox="0 0 1200 1400">
+  <style>
+    .bg { fill: #f5f5f5; }
+    .card { fill: #ffffff; stroke: #ccc; stroke-width: 2; rx: 20; }
+    .title { font: 700 36px sans-serif; fill: #333; }
+    .label { font: 600 24px sans-serif; fill: #222; }
+    .subtitle { font: 20px sans-serif; fill: #555; }
+    .towel { fill: #ffeecc; stroke: #d49a4a; stroke-width: 4; }
+    .print { fill: #ff8c94; opacity: 0.9; }
+    .strap { fill: #f0eee6; stroke: #b0a893; stroke-width: 3; }
+    .rope { fill: none; stroke: #8b5a2b; stroke-width: 10; stroke-linecap: round; }
+    .bag { fill: #fff3e5; stroke: #d1a77d; stroke-width: 4; }
+    .shadow { fill: rgba(0,0,0,0.12); }
+  </style>
+
+  <rect width="1200" height="1400" class="bg"/>
+  <text x="60" y="70" class="title">可变形沙滩巾包摄影示意</text>
+  <text x="60" y="110" class="subtitle">5张照片：展开、抽绳通道、成包、单肩背、反面内里</text>
+
+  <!-- Photo 1 -->
+  <g transform="translate(60,150)">
+    <rect width="520" height="260" class="card"/>
+    <text x="20" y="40" class="label">照片1：平铺摊开，展示正面满版印花</text>
+    <rect x="40" y="70" width="440" height="160" class="towel" rx="20"/>
+    <g fill="none" stroke="#ff8c94" stroke-width="18" stroke-linecap="round">
+      <path d="M90 110 Q160 90 230 120 T370 130" />
+      <path d="M120 160 Q180 140 260 170 T430 150" />
+      <path d="M100 190 Q170 210 240 180 T390 200" />
+    </g>
+  </g>
+
+  <!-- Photo 2 -->
+  <g transform="translate(620,150)">
+    <rect width="520" height="260" class="card"/>
+    <text x="20" y="40" class="label">照片2：侧面展示抽绳通道与肩带位置</text>
+    <rect x="80" y="90" width="340" height="140" class="towel" rx="20"/>
+    <rect x="80" y="90" width="340" height="30" class="bag" rx="15"/>
+    <path d="M85 95 L95 85 L145 110" class="rope"/>
+    <path d="M415 95 L425 85 L375 110" class="rope"/>
+    <rect x="60" y="70" width="30" height="90" class="strap" rx="15"/>
+    <rect x="510" y="70" width="30" height="90" class="strap" rx="15"/>
+  </g>
+
+  <!-- Photo 3 -->
+  <g transform="translate(60,460)">
+    <rect width="520" height="260" class="card"/>
+    <text x="20" y="40" class="label">照片3：收绳成包后的水桶包形态</text>
+    <ellipse cx="300" cy="170" rx="190" ry="90" class="shadow"/>
+    <path d="M160 90 C160 20 360 20 360 90 L360 190 C360 220 320 230 250 230 C180 230 160 220 160 190 Z" class="bag"/>
+    <path d="M160 90 C170 50 220 40 250 70 C280 40 330 50 340 90" class="rope"/>
+    <path d="M180 90 L180 120" class="rope"/>
+    <path d="M320 90 L320 120" class="rope"/>
+  </g>
+
+  <!-- Photo 4 -->
+  <g transform="translate(620,460)">
+    <rect width="520" height="260" class="card"/>
+    <text x="20" y="40" class="label">照片4：肩带可背状态，展示单肩背效果</text>
+    <ellipse cx="290" cy="205" rx="170" ry="50" class="shadow"/>
+    <path d="M180 90 C210 40 320 40 350 90 L350 190 C350 220 320 230 250 230 C180 230 160 220 160 190 Z" class="bag"/>
+    <path d="M220 90 C250 20 340 30 360 100" class="strap"/>
+    <path d="M220 90 C240 120 320 135 360 100" class="rope"/>
+  </g>
+
+  <!-- Photo 5 -->
+  <g transform="translate(60,770)">
+    <rect width="520" height="260" class="card"/>
+    <text x="20" y="40" class="label">照片5：反面纯色/内里效果</text>
+    <rect x="40" y="70" width="440" height="160" fill="#e8e2d6" stroke="#c8b99c" stroke-width="4" rx="20"/>
+    <text x="120" y="160" class="subtitle">纯色反面，说明正面才需要印花</text>
+  </g>
+
+  <g transform="translate(620,770)">
+    <rect width="520" height="260" class="card"/>
+    <text x="20" y="40" class="label">关键提示</text>
+    <text x="20" y="90" class="subtitle">正面做满版印花，收成包后外露面都是正面。</text>
+    <text x="20" y="130" class="subtitle">反面可选米色、纯色或毛巾底，降低成本。</text>
+  </g>
+</svg>

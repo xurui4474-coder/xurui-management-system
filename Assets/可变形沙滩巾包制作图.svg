@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1200" viewBox="0 0 1400 1200">
+  <style>
+    .bg { fill: #faf8f3; }
+    .panel { fill: #ffffff; stroke: #d1c7b0; stroke-width: 2; rx: 20; }
+    .title { font: 700 42px sans-serif; fill: #2f2a25; }
+    .subtitle { font: 600 24px sans-serif; fill: #4a4239; }
+    .text { font: 20px sans-serif; fill: #3d332c; }
+    .shape { fill: #f7e8d7; stroke: #c9a87a; stroke-width: 4; }
+    .outline { fill: none; stroke: #b0855d; stroke-width: 4; }
+    .detail { fill: #f4f0e9; stroke: #b2a186; stroke-width: 3; }
+    .rope { fill: none; stroke: #8b5a2b; stroke-width: 14; stroke-linecap: round; }
+    .strap { fill: #f1e9dd; stroke: #9f957e; stroke-width: 4; }
+    .stitch { fill: none; stroke: #8b5a2b; stroke-width: 3; stroke-dasharray: 8 8; }
+    .shadow { fill: rgba(0,0,0,0.12); }
+    .label-box { fill: #ffffffcc; stroke: #c1b09d; stroke-width: 1; rx: 8; }
+  </style>
+
+  <rect width="1400" height="1200" class="bg"/>
+  <text x="50" y="60" class="title">可变形沙滩巾包制作图</text>
+  <text x="50" y="100" class="subtitle">反推结构原理 + 关键工艺节点说明</text>
+
+  <!-- Main panel: flat layout -->
+  <g transform="translate(50,140)">
+    <rect width="840" height="420" class="panel"/>
+    <text x="30" y="40" class="subtitle">1. 主体布料结构（平铺）</text>
+    <rect x="60" y="80" width="720" height="280" rx="30" class="shape"/>
+    <rect x="60" y="80" width="720" height="60" rx="30" class="detail"/>
+    <rect x="60" y="300" width="720" height="60" rx="30" class="detail"/>
+    <rect x="60" y="80" width="60" height="280" rx="20" class="detail"/>
+    <rect x="720" y="80" width="60" height="280" rx="20" class="detail"/>
+    <text x="100" y="210" class="text">长方形布：90×160 / 100×180 / 110×180</text>
+    <text x="100" y="250" class="text">四周锁边，短边可做流苏或毛边</text>
+    <text x="100" y="290" class="text">上口或四周做抽绳通道</text>
+    <text x="680" y="90" class="text" text-anchor="end">正面满版印花</text>
+    <text x="680" y="120" class="text" text-anchor="end">反面可纯色/米色</text>
+  </g>
+
+  <!-- Detail panel: drawstring channel -->
+  <g transform="translate(50,600)">
+    <rect width="420" height="320" class="panel"/>
+    <text x="30" y="40" class="subtitle">2. 抽绳通道做法</text>
+    <rect x="60" y="80" width="300" height="180" rx="20" class="detail"/>
+    <path d="M75 150 Q120 130 160 150 T270 150" class="rope"/>
+    <path d="M75 210 Q120 190 160 210 T270 210" class="rope"/>
+    <text x="80" y="310" class="text">低成本：四周折边缝通道，穿棉绳</text>
+    <text x="80" y="340" class="text">质感：打鸡眼/织带孔，穿粗棉绳</text>
+    <text x="80" y="370" class="text">抽绳位置应均匀，收紧后形成包口</text>
+  </g>
+
+  <!-- Detail panel: strap installation -->
+  <g transform="translate(470,600)">
+    <rect width="420" height="320" class="panel"/>
+    <text x="30" y="40" class="subtitle">3. 肩带固定与加固</text>
+    <rect x="90" y="90" width="260" height="220" rx="24" class="detail"/>
+    <rect x="130" y="130" width="40" height="120" rx="20" class="strap"/>
+    <rect x="260" y="130" width="40" height="120" rx="20" class="strap"/>
+    <path d="M130 130 L170 190 L130 250" class="stitch"/>
+    <path d="M130 250 L170 190 L130 130" class="stitch"/>
+    <path d="M260 130 L300 190 L260 250" class="stitch"/>
+    <path d="M260 250 L300 190 L260 130" class="stitch"/>
+    <text x="80" y="340" class="text">肩带：米白宽织带，建议3.8–5cm</text>
+    <text x="80" y="370" class="text">受力点：X字加固或方框加叉</text>
+    <text x="80" y="400" class="text">肩带缝在反面，收起后贴背面</text>
+  </g>
+
+  <!-- Sequence panel: transformation -->
+  <g transform="translate(920,140)">
+    <rect width="420" height="780" class="panel"/>
+    <text x="30" y="40" class="subtitle">4. 变形使用流程</text>
+    <g transform="translate(40,80)">
+      <rect x="0" y="0" width="340" height="220" rx="24" class="shape"/>
+      <text x="170" y="250" class="text" text-anchor="middle">1. 展开为沙滩巾</text>
+      <path d="M20 160 C80 130 260 130 320 160" class="rope"/>
+    </g>
+    <g transform="translate(40,320)">
+      <rect x="0" y="0" width="340" height="220" rx="24" class="shape"/>
+      <text x="170" y="250" class="text" text-anchor="middle">2. 四边向中间收拢</text>
+      <path d="M100 40 Q170 20 240 40" class="rope"/>
+      <path d="M80 160 Q170 120 260 160" class="rope"/>
+    </g>
+    <g transform="translate(40,560)">
+      <rect x="0" y="0" width="340" height="160" rx="24" class="shape"/>
+      <text x="170" y="190" class="text" text-anchor="middle">3. 拉紧抽绳成水桶包</text>
+      <path d="M70 30 C110 10 230 10 270 30" class="rope"/>
+      <path d="M120 60 C140 90 200 90 220 60" class="strap"/>
+    </g>
+  </g>
+
+  <g transform="translate(50,950)">
+    <rect width="1320" height="200" class="panel"/>
+    <text x="30" y="40" class="subtitle">5. 生产关键提醒</text>
+    <text x="30" y="80" class="text">• 印花面 = 正面，必须满版印花，避免收包后露出空白</text>
+    <text x="30" y="110" class="text">• 反面可做纯色/米色/毛巾底，降低成本且不影响效果</text>
+    <text x="30" y="140" class="text">• 面料建议棉麻、棉纱、华夫格、毛圈布、雪尼尔毯布</text>
+    <text x="30" y="170" class="text">• 结构描述：一片长方形布 + 抽绳通道 + 两条肩带 + 肩带加固</text>
+  </g>
+</svg>

@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1300" viewBox="0 0 1700 1300">
+  <style>
+    .bg { fill: #f7f3ee; }
+    .panel { fill: #ffffff; stroke: #d0c0aa; stroke-width: 2; rx: 24; }
+    .title { font: 700 42px sans-serif; fill: #2e271f; }
+    .subtitle { font: 600 24px sans-serif; fill: #4a4138; }
+    .label { font: 600 22px sans-serif; fill: #453e36; }
+    .text { font: 20px sans-serif; fill: #4a4138; }
+    .shape { fill: #f1e4d7; stroke: #c7a97d; stroke-width: 3; }
+    .shadow { fill: rgba(0,0,0,0.12); }
+    .detail { fill: #f6eee6; stroke: #b8a98a; stroke-width: 2; }
+    .rope { fill: none; stroke: #8b5a2b; stroke-width: 12; stroke-linecap: round; }
+    .strap { fill: #efeadf; stroke: #a79885; stroke-width: 3; }
+    .line { stroke: #8b6a4b; stroke-width: 4; stroke-linecap: round; }
+    .dash { stroke: #8b6a4b; stroke-width: 3; stroke-dasharray: 10 8; }
+  </style>
+
+  <rect width="1700" height="1300" class="bg"/>
+  <text x="70" y="70" class="title">空间三维可变形沙滩巾包制作图</text>
+  <text x="70" y="110" class="subtitle">立体化展示裁片、结构、收包与肩带固定</text>
+
+  <!-- 3D Step 1 -->
+  <g transform="translate(80,160)">
+    <rect width="760" height="320" class="panel"/>
+    <text x="30" y="45" class="label">步骤1：裁片与面料</text>
+    <g transform="translate(40,80)">
+      <path d="M0 40 L620 0 L660 140 L40 180 Z" class="shape"/>
+      <path d="M0 40 L0 220 L40 260 L40 180 Z" class="shape"/>
+      <path d="M620 0 L660 140 L660 320 L620 180 Z" class="shape"/>
+      <path d="M40 180 L660 140 L660 320 L40 360 Z" class="detail"/>
+      <path d="M40 180 L0 220 L620 260 L660 220 Z" class="detail"/>
+      <path d="M0 220 L620 260" class="line"/>
+      <text x="30" y="55" class="text">正面满版印花</text>
+      <text x="30" y="85" class="text">反面纯色 / 米色</text>
+      <text x="30" y="115" class="text">尺寸：90×160 / 100×180 / 110×180</text>
+      <text x="450" y="150" class="text">流苏短边</text>
+    </g>
+  </g>
+
+  <!-- 3D Step 2 -->
+  <g transform="translate(880,160)">
+    <rect width="720" height="320" class="panel"/>
+    <text x="30" y="45" class="label">步骤2：四周锁边 + 抽绳通道</text>
+    <g transform="translate(60,80)">
+      <path d="M0 20 L520 0 L560 160 L40 180 Z" class="shape"/>
+      <path d="M0 20 L0 190 L40 210 L40 180 Z" class="shape"/>
+      <path d="M520 0 L560 160 L560 340 L520 200 Z" class="shape"/>
+      <path d="M40 180 L560 160 L560 340 L40 360 Z" class="detail"/>
+      <path d="M40 180 L0 190 L520 210 L560 200 Z" class="detail"/>
+      <text x="20" y="60" class="text">低成本：折边缝通道，穿棉绳</text>
+      <text x="20" y="90" class="text">质感：打鸡眼 / 织带孔，穿 6–10mm 棉绳</text>
+      <circle cx="120" cy="35" r="8" fill="#8b5a2b"/>
+      <circle cx="180" cy="30" r="8" fill="#8b5a2b"/>
+      <circle cx="240" cy="25" r="8" fill="#8b5a2b"/>
+      <circle cx="300" cy="20" r="8" fill="#8b5a2b"/>
+      <circle cx="360" cy="15" r="8" fill="#8b5a2b"/>
+      <circle cx="420" cy="10" r="8" fill="#8b5a2b"/>
+    </g>
+  </g>
+
+  <!-- 3D Step 3 -->
+  <g transform="translate(80,520)">
+    <rect width="760" height="360" class="panel"/>
+    <text x="30" y="45" class="label">步骤3：肩带安装与加固</text>
+    <g transform="translate(40,90)">
+      <path d="M0 60 L260 0 L300 80 L40 140 Z" class="detail"/>
+      <path d="M0 60 L0 220 L40 260 L40 140 Z" class="shape"/>
+      <path d="M260 0 L300 80 L300 260 L260 220 Z" class="shape"/>
+      <path d="M40 140 L300 80 L300 260 L40 300 Z" class="shape"/>
+      <rect x="40" y="120" width="50" height="180" rx="18" class="strap"/>
+      <rect x="220" y="120" width="50" height="180" rx="18" class="strap"/>
+      <path d="M40 120 L90 210 L40 260" class="dash"/>
+      <path d="M40 260 L90 210 L40 120" class="dash"/>
+      <path d="M220 120 L270 210 L220 260" class="dash"/>
+      <path d="M220 260 L270 210 L220 120" class="dash"/>
+      <text x="360" y="70" class="text">肩带宽度 3.8–5cm</text>
+      <text x="360" y="100" class="text">反面固定，收起后贴背面</text>
+      <text x="360" y="130" class="text">受力点 X 字车线或方框叉</text>
+    </g>
+  </g>
+
+  <!-- 3D Step 4 -->
+  <g transform="translate(880,520)">
+    <rect width="720" height="360" class="panel"/>
+    <text x="30" y="45" class="label">步骤4：三维收包演示</text>
+    <g transform="translate(60,90)">
+      <path d="M0 90 L260 0 L500 60 L240 150 Z" class="shape"/>
+      <path d="M0 90 L0 250 L240 320 L240 150 Z" class="shape"/>
+      <path d="M260 0 L500 60 L500 220 L260 150 Z" class="shape"/>
+      <path d="M240 150 L500 220 L500 340 L240 320 Z" class="detail"/>
+      <path d="M0 250 L240 320" class="line"/>
+      <path d="M260 0 C320 120 380 120 440 0" class="rope"/>
+      <path d="M90 100 C130 140 170 140 210 100" class="rope"/>
+      <text x="30" y="80" class="text">• 先把四边向中间收拢</text>
+      <text x="30" y="110" class="text">• 再拉紧抽绳，形成立体水桶包</text>
+      <text x="30" y="140" class="text">• 正面满版印花在褶皱处也会外露</text>
+    </g>
+  </g>
+
+  <!-- 3D Step 5 -->
+  <g transform="translate(80,920)">
+    <rect width="1520" height="320" class="panel"/>
+    <text x="30" y="45" class="label">步骤5：成包后视角与内里说明</text>
+    <g transform="translate(60,90)">
+      <path d="M0 20 L240 0 L280 120 L40 140 Z" class="shape"/>
+      <path d="M0 20 L0 160 L40 180 L40 140 Z" class="shape"/>
+      <path d="M240 0 L280 120 L280 280 L240 240 Z" class="shape"/>
+      <path d="M40 140 L280 120 L280 280 L40 320 Z" class="detail"/>
+      <path d="M0 160 L240 140" class="line"/>
+      <path d="M120 60 C160 20 220 20 260 60" class="rope"/>
+      <path d="M140 100 C180 40 220 40 260 100" class="strap"/>
+      <text x="320" y="70" class="text">成包后包身外侧为正面印花</text>
+      <text x="320" y="100" class="text">反面主要在内里，可做纯色</text>
+      <text x="320" y="130" class="text">包口加固切口与肩带缝合点非常关键</text>
+    </g>
+  </g>
+
+  <g transform="translate(60,1220)">
+    <text x="0" y="35" class="label">关键生产要点</text>
+    <text x="0" y="70" class="text">• 正面必须满版印花，避免局部图案露白</text>
+    <text x="0" y="100" class="text">• 只做正面印花，反面可简化为纯色</text>
+    <text x="0" y="130" class="text">• 抽绳通道与肩带受力点必须加固</text>
+    <text x="0" y="160" class="text">• 建议图案：大面积抽象 / 波西米亚，避免倒着看</text>
+  </g>
+</svg>
