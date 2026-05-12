@@ -81,43 +81,43 @@ export default function ProductTable({ products, onAddProduct, onUpdateProduct, 
             {filtered.map((item) => (
               <tr key={item.id} className="border-t border-line">
                 <td className="px-2 py-2">
-                  <input className="table-input font-semibold" value={item.name} onChange={(event) => update(item.id, "name", event.target.value)} />
+                  <input className="table-input font-semibold" value={item.name || ""} onChange={(event) => update(item.id, "name", event.target.value)} />
                 </td>
                 <td className="px-2 py-2">
-                  <select className="table-select" value={item.platform} onChange={(event) => update(item.id, "platform", event.target.value)}>
+                  <select className="table-select" value={item.platform || "Amazon"} onChange={(event) => update(item.id, "platform", event.target.value)}>
                     {platforms.map((p) => (
                       <option key={p}>{p}</option>
                     ))}
                   </select>
                 </td>
                 <td className="px-2 py-2">
-                  <select className="table-select" value={item.unified} onChange={(event) => update(item.id, "unified", event.target.value)}>
-                    <option>是</option>
-                    <option>否</option>
+                  <select className="table-select" value={item.unified || "否"} onChange={(event) => update(item.id, "unified", event.target.value)}>
+                    <option value="是">是</option>
+                    <option value="否">否</option>
                   </select>
                 </td>
                 <td className="px-2 py-2">
-                  <input className="table-input" value={item.supplier} onChange={(event) => update(item.id, "supplier", event.target.value)} />
+                  <input className="table-input" value={item.supplier || ""} onChange={(event) => update(item.id, "supplier", event.target.value)} />
                 </td>
                 <td className="px-2 py-2">
-                  <input className="table-input" type="number" value={item.cost} onChange={(event) => update(item.id, "cost", event.target.value)} />
+                  <input className="table-input" type="number" value={Number(item.cost) || 0} onChange={(event) => update(item.id, "cost", event.target.value)} />
                 </td>
                 <td className="px-2 py-2">
-                  <input className="table-input" type="number" value={item.price} onChange={(event) => update(item.id, "price", event.target.value)} />
+                  <input className="table-input" type="number" value={Number(item.price) || 0} onChange={(event) => update(item.id, "price", event.target.value)} />
                 </td>
-                <td className="px-3 py-2 font-semibold">{item.margin}%</td>
+                <td className="px-3 py-2 font-semibold">{Number(item.margin) || 0}%</td>
                 <td className="px-2 py-2">
-                  <input className="table-input" value={item.listingStatus} onChange={(event) => update(item.id, "listingStatus", event.target.value)} />
+                  <input className="table-input" value={item.listingStatus || ""} onChange={(event) => update(item.id, "listingStatus", event.target.value)} />
                 </td>
                 <td className="px-2 py-2">
-                  <select className="table-select" value={item.owner} onChange={(event) => update(item.id, "owner", event.target.value)}>
+                  <select className="table-select" value={item.owner || "徐瑞"} onChange={(event) => update(item.id, "owner", event.target.value)}>
                     {owners.map((owner) => (
                       <option key={owner}>{owner}</option>
                     ))}
                   </select>
                 </td>
                 <td className="px-2 py-2">
-                  <input className="table-input" value={item.remark} onChange={(event) => update(item.id, "remark", event.target.value)} />
+                  <input className="table-input" value={item.remark || ""} onChange={(event) => update(item.id, "remark", event.target.value)} />
                 </td>
                 <td className="px-3 py-2">
                   <button className="rounded-md p-2 text-muted hover:bg-red-50 hover:text-red-700" onClick={() => onDeleteProduct(item.id)} title="删除">

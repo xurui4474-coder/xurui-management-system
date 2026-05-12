@@ -1,3 +1,16 @@
+function toYesNo(value) {
+  if (value === true) return "是";
+  if (value === false) return "否";
+  if (value === "true") return "是";
+  if (value === "false") return "否";
+  return value || "否";
+}
+
+function toBoolean(value) {
+  if (value === true || value === "true" || value === "是" || value === "yes" || value === 1) return true;
+  return false;
+}
+
 export function taskFromDb(row) {
   const notes = row.notes || row.remark || "";
   return {
@@ -34,7 +47,7 @@ export function productFromDb(row) {
     id: row.id,
     name: row.name || "",
     platform: row.platform || "Amazon",
-    unified: row.unified || "是",
+    unified: toYesNo(row.unified),
     supplier: row.supplier || "",
     cost: Number(row.cost) || 0,
     price: Number(row.price) || 0,
@@ -49,7 +62,7 @@ export function productToDb(product) {
   return {
     name: product.name || "新产品",
     platform: product.platform || "Amazon",
-    unified: product.unified || "是",
+    unified: toBoolean(product.unified),
     supplier: product.supplier || "",
     cost: Number(product.cost) || 0,
     price: Number(product.price) || 0,
