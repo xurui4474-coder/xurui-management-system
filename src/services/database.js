@@ -11,6 +11,56 @@ async function run(query) {
   return data;
 }
 
+function missingColumnName(error) {
+  const message = error?.message || "";
+  const match = message.match(/Could not find the '([^']+)' column/);
+  return match?.[1] || "";
+}
+
+async function writeWeeklyReview(operation) {
+  let payload = reviewToDb(operation.review);
+
+  for (let attempt = 0; attempt < 8; attempt += 1) {
+    try {
+      const query = operation.id
+        ? supabase.from("weekly_reviews").update(payload).eq("id", operation.id).select().single()
+        : supabase.from("weekly_reviews").insert(payload).select().single();
+      const row = await run(query);
+      return reviewFromDb(row);
+    } catch (error) {
+      const column = missingColumnName(error);
+      if (!column || !(column in payload)) throw error;
+      payload = { ...payload };
+      delete payload[column];
+      console.warn(`weekly_reviews 缺少 ${column} 字段，已自动跳过该字段写入。`, error);
+    }
+  }
+
+  throw new Error("周度复盘写入失败，请检查 weekly_reviews 表字段");
+}
+
+async function writeProduct(operation) {
+  let payload = productToDb(operation.product);
+
+  for (let attempt = 0; attempt < 8; attempt += 1) {
+    try {
+      const query = operation.id
+        ? supabase.from("products").update(payload).eq("id", operation.id).select().single()
+        : supabase.from("products").insert(payload).select().single();
+      const row = await run(query);
+      return productFromDb(row);
+    } catch (error) {
+      const column = missingColumnName(error);
+      if (!column || !(column in payload)) throw error;
+      payload = { ...payload };
+      delete payload[column];
+      console.warn(`products 缺少 ${column} 字段，已自动跳过该字段写入。`, error);
+    }
+  }
+
+  throw new Error("选品写入失败，请检查 products 表字段");
+}
+
 export async function loadAllData() {
   assertClient();
   const [tasks, products, reviews, metrics] = await Promise.all([
@@ -47,14 +97,12 @@ export async function deleteTask(id) {
 
 export async function insertProduct(product) {
   assertClient();
-  const row = await run(supabase.from("products").insert(productToDb(product)).select().single());
-  return productFromDb(row);
+  return writeProduct({ product });
 }
 
 export async function updateProduct(id, patch) {
   assertClient();
-  const row = await run(supabase.from("products").update(productToDb(patch)).eq("id", id).select().single());
-  return productFromDb(row);
+  return writeProduct({ id, product: patch });
 }
 
 export async function deleteProduct(id) {
@@ -64,14 +112,12 @@ export async function deleteProduct(id) {
 
 export async function insertReview(review) {
   assertClient();
-  const row = await run(supabase.from("weekly_reviews").insert(reviewToDb(review)).select().single());
-  return reviewFromDb(row);
+  return writeWeeklyReview({ review });
 }
 
 export async function updateReview(id, patch) {
   assertClient();
-  const row = await run(supabase.from("weekly_reviews").update(reviewToDb(patch)).eq("id", id).select().single());
-  return reviewFromDb(row);
+  return writeWeeklyReview({ id, review: patch });
 }
 
 export async function deleteReview(id) {
