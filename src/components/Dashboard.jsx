@@ -1,4 +1,4 @@
-import { AlertTriangle, CalendarDays, CheckCircle2, CircleDollarSign, Clock3 } from "lucide-react";
+import { AlertTriangle, CalendarDays, CheckCircle2, CircleDollarSign, Clock3, Sparkles } from "lucide-react";
 import { businessSections } from "../data/initialData";
 import ProgressBar from "./ProgressBar";
 import StatusBadge from "./StatusBadge";
@@ -9,12 +9,14 @@ function sum(list, key) {
 
 function StatCard({ icon: Icon, label, value, note }) {
   return (
-    <div className="rounded-lg border border-line bg-paper p-4 shadow-soft">
+    <div className="glass-panel rounded-3xl p-5">
       <div className="flex items-center justify-between">
         <span className="text-sm text-muted">{label}</span>
-        <Icon className="text-steel" size={18} />
+        <span className="rounded-2xl bg-white/62 p-2 text-steel">
+          <Icon size={18} />
+        </span>
       </div>
-      <div className="mt-3 text-2xl font-bold">{value}</div>
+      <div className="mt-4 text-3xl font-bold text-ink">{value}</div>
       <div className="mt-1 text-xs text-muted">{note}</div>
     </div>
   );
@@ -23,16 +25,29 @@ function StatCard({ icon: Icon, label, value, note }) {
 export default function Dashboard({ tasksMap, metrics }) {
   const allTasks = Object.values(tasksMap).flat();
   const risks = allTasks.filter((task) => task.status === "风险");
-  const overdue = allTasks.filter((task) => task.status !== "已完成" && task.dueDate < new Date().toISOString().slice(0, 10));
+  const today = new Date().toISOString().slice(0, 10);
+  const overdue = allTasks.filter((task) => task.status !== "已完成" && task.dueDate && task.dueDate < today);
   const weekly = allTasks.filter((task) => ["进行中", "风险", "延期"].includes(task.status)).slice(0, 6);
   const nextWeek = allTasks.filter((task) => task.status !== "已完成").slice(0, 5);
   const sales = sum(metrics, "sales");
 
   return (
     <section>
-      <div className="mb-5">
-        <h1 className="text-2xl font-bold">首页总览 Dashboard</h1>
-        <p className="mt-1 text-sm text-muted">四大业务板块、任务进度、风险与销售额概览</p>
+      <div className="glass-panel mb-5 overflow-hidden rounded-3xl p-6">
+        <div className="flex items-start justify-between gap-6">
+          <div>
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/54 px-3 py-1 text-xs font-semibold text-muted">
+              <Sparkles size={14} />
+              Cross-border operating room
+            </div>
+            <h1 className="text-3xl font-bold tracking-normal text-ink">首页总览 Dashboard</h1>
+            <p className="mt-2 text-sm text-muted">四大业务板块、任务进度、风险提醒与销售额概览</p>
+          </div>
+          <div className="rounded-2xl bg-white/58 px-4 py-3 text-right">
+            <div className="text-xs text-muted">今日重点</div>
+            <div className="mt-1 text-lg font-bold text-ink">{weekly.length} 项推进中</div>
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-4 gap-4">
@@ -43,14 +58,14 @@ export default function Dashboard({ tasksMap, metrics }) {
       </div>
 
       <div className="mt-5 grid grid-cols-[1fr_1fr] gap-4">
-        <div className="rounded-lg border border-line bg-paper p-4 shadow-soft">
-          <div className="mb-3 font-semibold">四个业务板块整体进度</div>
+        <div className="glass-panel rounded-3xl p-5">
+          <div className="mb-4 font-semibold">四个业务板块整体进度</div>
           <div className="space-y-4">
             {businessSections.map((section) => {
               const list = tasksMap[section.id] || [];
               const progress = list.length ? Math.round(list.reduce((total, item) => total + Number(item.progress || 0), 0) / list.length) : 0;
               return (
-                <div key={section.id}>
+                <div key={section.id} className="rounded-2xl bg-white/48 p-3">
                   <div className="mb-2 flex items-center justify-between text-sm">
                     <span className="font-semibold">{section.name}</span>
                     <span className="text-muted">{list.length} 项任务</span>
@@ -62,11 +77,11 @@ export default function Dashboard({ tasksMap, metrics }) {
           </div>
         </div>
 
-        <div className="rounded-lg border border-line bg-paper p-4 shadow-soft">
-          <div className="mb-3 font-semibold">销售额概览</div>
+        <div className="glass-panel rounded-3xl p-5">
+          <div className="mb-4 font-semibold">销售额概览</div>
           <div className="space-y-3">
             {metrics.map((item) => (
-              <div key={item.id} className="grid grid-cols-[140px_1fr_90px] items-center gap-3 text-sm">
+              <div key={item.id} className="grid grid-cols-[140px_1fr_90px] items-center gap-3 rounded-2xl bg-white/48 p-3 text-sm">
                 <span className="font-semibold">{item.channel}</span>
                 <ProgressBar value={item.progress} />
                 <span className="text-right font-bold">¥{item.sales.toLocaleString()}</span>
@@ -82,11 +97,11 @@ export default function Dashboard({ tasksMap, metrics }) {
         <Panel title="风险提醒" icon={AlertTriangle} tasks={risks} />
       </div>
 
-      <div className="mt-5 rounded-lg border border-line bg-paper p-4 shadow-soft">
+      <div className="glass-panel mt-5 rounded-3xl p-5">
         <div className="mb-3 font-semibold">下周计划</div>
         <div className="grid grid-cols-5 gap-3">
           {nextWeek.map((task) => (
-            <div key={task.id} className="rounded-lg border border-line bg-cream/40 p-3">
+            <div key={task.id} className="rounded-2xl border border-white/70 bg-white/48 p-3">
               <div className="line-clamp-2 min-h-10 text-sm font-semibold">{task.title}</div>
               <div className="mt-3 flex items-center justify-between">
                 <StatusBadge status={task.status} />
@@ -94,6 +109,7 @@ export default function Dashboard({ tasksMap, metrics }) {
               </div>
             </div>
           ))}
+          {!nextWeek.length && <div className="col-span-5 py-5 text-center text-sm text-muted">暂无计划</div>}
         </div>
       </div>
     </section>
@@ -102,14 +118,14 @@ export default function Dashboard({ tasksMap, metrics }) {
 
 function Panel({ title, icon: Icon, tasks }) {
   return (
-    <div className="rounded-lg border border-line bg-paper p-4 shadow-soft">
+    <div className="glass-panel rounded-3xl p-5">
       <div className="mb-3 flex items-center gap-2 font-semibold">
         <Icon size={17} className="text-steel" />
         {title}
       </div>
       <div className="space-y-3">
         {tasks.slice(0, 5).map((task) => (
-          <div key={task.id} className="rounded-lg border border-line bg-cream/35 p-3">
+          <div key={task.id} className="rounded-2xl border border-white/70 bg-white/46 p-3">
             <div className="text-sm font-semibold">{task.title}</div>
             <div className="mt-2 flex items-center justify-between text-xs text-muted">
               <span>{task.owner}</span>

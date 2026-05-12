@@ -16,9 +16,9 @@ export default function TaskList({ tasks = [] }) {
   }
 
   return (
-    <div className="overflow-hidden rounded-lg border border-gray-100 bg-white">
-      <table className="w-full border-collapse text-sm">
-        <thead className="bg-gray-50 text-left text-xs font-semibold text-gray-500">
+    <div className="excel-wrap">
+      <table className="excel-table text-sm">
+        <thead>
           <tr>
             <th className="px-3 py-3">任务</th>
             <th className="px-3 py-3">状态</th>

@@ -5,9 +5,9 @@ import StatusBadge from "./StatusBadge";
 
 export default function TaskTable({ tasks, onUpdate, onDelete }) {
   return (
-    <div className="overflow-hidden rounded-lg border border-line bg-paper shadow-soft">
-      <table className="w-full border-collapse text-sm">
-        <thead className="bg-cream text-left text-xs font-semibold text-muted">
+    <div className="excel-wrap">
+      <table className="excel-table text-sm">
+        <thead>
           <tr>
             <th className="px-3 py-3">任务</th>
             <th className="w-32 px-3 py-3">状态</th>
@@ -21,10 +21,10 @@ export default function TaskTable({ tasks, onUpdate, onDelete }) {
         <tbody>
           {tasks.map((task) => (
             <tr key={task.id} className="border-t border-line align-top">
-              <td className="px-2 py-2">
+              <td>
                 <input className="table-input font-semibold" value={task.title || ""} onChange={(event) => onUpdate(task.id, "title", event.target.value)} />
               </td>
-              <td className="px-2 py-2">
+              <td>
                 <select className="table-select" value={task.status || "未开始"} onChange={(event) => onUpdate(task.id, "status", event.target.value)}>
                   {statuses.map((status) => (
                     <option key={status} value={status}>
@@ -36,7 +36,7 @@ export default function TaskTable({ tasks, onUpdate, onDelete }) {
                   <StatusBadge status={task.status} />
                 </div>
               </td>
-              <td className="px-2 py-2">
+              <td>
                 <select className="table-select" value={task.owner || "徐瑞"} onChange={(event) => onUpdate(task.id, "owner", event.target.value)}>
                   {owners.map((owner) => (
                     <option key={owner} value={owner}>
@@ -45,7 +45,7 @@ export default function TaskTable({ tasks, onUpdate, onDelete }) {
                   ))}
                 </select>
               </td>
-              <td className="px-2 py-2">
+              <td>
                 <input className="table-input" type="date" value={task.dueDate || task.due_date || ""} onChange={(event) => onUpdate(task.id, "dueDate", event.target.value)} />
               </td>
               <td className="px-3 py-4">
@@ -59,7 +59,7 @@ export default function TaskTable({ tasks, onUpdate, onDelete }) {
                   onChange={(event) => onUpdate(task.id, "progress", Number(event.target.value))}
                 />
               </td>
-              <td className="px-2 py-2">
+              <td>
                 <textarea
                   className="table-input min-h-20 resize-y"
                   value={task.notes || task.remark || ""}

@@ -262,21 +262,21 @@ function AppContent() {
   }
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen">
       <Sidebar active={active} onChange={handleNavigate} />
       <main className="ml-64 min-h-screen px-6 py-5">
-        <div className="mb-5 flex items-center justify-between rounded-lg border border-line bg-paper px-4 py-3 shadow-soft">
+        <div className="glass-panel mb-5 flex items-center justify-between rounded-3xl px-5 py-4">
           <div>
             <div className="text-sm font-semibold">跨境负责人：徐瑞</div>
             <div className="text-xs text-muted">
               Amazon Minirain / Softrain · TikTok 美区 · 独立站 · 当前账号：{session.user.email}
             </div>
           </div>
-          <div className="flex items-center gap-6 text-right text-xs text-muted">
+          <div className="flex items-center gap-5 text-right text-xs text-muted">
             {businessSections.map((section) => {
               const count = (tasksMap[section.id] || []).length;
               return (
-                <div key={section.id}>
+                <div key={section.id} className="rounded-2xl bg-white/48 px-3 py-2">
                   <div className="text-base font-bold text-ink">{count}</div>
                   <div>{section.shortName}</div>
                 </div>

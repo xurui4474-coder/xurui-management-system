@@ -44,9 +44,9 @@ export default function WeeklyReviewTable({ reviews, onAddReview, onUpdateReview
         onAdd={() => onAddReview(emptyReview)}
         onExport={() => exportToCsv("周度复盘.csv", reviews)}
       />
-      <div className="overflow-auto rounded-lg border border-line bg-paper shadow-soft scrollbar-thin">
-        <table className="min-w-[1680px] text-sm">
-          <thead className="bg-cream text-left text-xs font-semibold text-muted">
+      <div className="excel-wrap scrollbar-thin">
+        <table className="excel-table min-w-[1680px] text-sm">
+          <thead>
             <tr>
               {columns.map(([, label]) => (
                 <th key={label} className="px-3 py-3">
@@ -60,7 +60,7 @@ export default function WeeklyReviewTable({ reviews, onAddReview, onUpdateReview
             {reviews.map((item) => (
               <tr key={item.id} className="border-t border-line align-top">
                 {columns.map(([key]) => (
-                  <td key={key} className="min-w-36 px-2 py-2">
+                  <td key={key} className="min-w-36">
                     <textarea className="table-input min-h-16 resize-y" value={item[key] || ""} onChange={(event) => update(item.id, key, event.target.value)} />
                   </td>
                 ))}
