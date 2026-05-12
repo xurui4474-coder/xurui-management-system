@@ -5,9 +5,9 @@ export function taskFromDb(row) {
     boardId: row.board_id,
     board_id: row.board_id,
     module: row.module || "",
-    title: row.title,
-    status: row.status,
-    owner: row.owner,
+    title: row.title || "",
+    status: row.status || "未开始",
+    owner: row.owner || "徐瑞",
     dueDate: row.due_date || "",
     due_date: row.due_date || "",
     progress: Number(row.progress) || 0,
@@ -20,7 +20,7 @@ export function taskToDb(task) {
   return {
     board_id: task.boardId || task.board_id,
     module: task.module || "",
-    title: task.title || task.taskName || "",
+    title: task.title || task.taskName || "新任务",
     status: task.status || "未开始",
     owner: task.owner || "徐瑞",
     due_date: task.dueDate || task.due_date || task.deadline || null,
@@ -32,29 +32,29 @@ export function taskToDb(task) {
 export function productFromDb(row) {
   return {
     id: row.id,
-    name: row.name,
-    platform: row.platform,
-    unified: row.unified,
-    supplier: row.supplier,
-    cost: Number(row.cost),
-    price: Number(row.price),
-    margin: Number(row.margin),
-    listingStatus: row.listing_status,
-    owner: row.owner,
-    remark: row.remark,
+    name: row.name || "",
+    platform: row.platform || "Amazon",
+    unified: row.unified || "是",
+    supplier: row.supplier || "",
+    cost: Number(row.cost) || 0,
+    price: Number(row.price) || 0,
+    margin: Number(row.margin) || 0,
+    listingStatus: row.listing_status || "",
+    owner: row.owner || "徐瑞",
+    remark: row.remark || "",
   };
 }
 
 export function productToDb(product) {
   return {
-    name: product.name,
-    platform: product.platform,
-    unified: product.unified,
+    name: product.name || "新产品",
+    platform: product.platform || "Amazon",
+    unified: product.unified || "是",
     supplier: product.supplier || "",
     cost: Number(product.cost) || 0,
     price: Number(product.price) || 0,
     margin: Number(product.margin) || 0,
-    listing_status: product.listingStatus || "",
+    listing_status: product.listingStatus || "调研中",
     owner: product.owner || "徐瑞",
     remark: product.remark || "",
   };
@@ -63,17 +63,17 @@ export function productToDb(product) {
 export function reviewFromDb(row) {
   return {
     id: row.id,
-    week: row.week,
-    stage: row.stage,
-    period: row.period,
-    meetingTime: row.meeting_time,
-    salesToDate: row.sales_to_date,
-    focus: row.focus,
-    actions: row.actions,
-    deliverables: row.deliverables,
-    result: row.result,
-    nextPlan: row.next_plan,
-    risk: row.risk,
+    week: row.week || "",
+    stage: row.stage || "",
+    period: row.period || "",
+    meetingTime: row.meeting_time || "",
+    salesToDate: row.sales_to_date || "",
+    focus: row.focus || "",
+    actions: row.actions || "",
+    deliverables: row.deliverables || "",
+    result: row.result || "",
+    nextPlan: row.next_plan || "",
+    risk: row.risk || "",
   };
 }
 
@@ -97,11 +97,11 @@ export function metricFromDb(row) {
   return {
     id: row.id,
     channel: row.channel,
-    sales: Number(row.sales),
-    orders: Number(row.orders),
-    acos: Number(row.acos),
-    tacos: Number(row.tacos),
-    progress: Number(row.progress),
+    sales: Number(row.sales) || 0,
+    orders: Number(row.orders) || 0,
+    acos: Number(row.acos) || 0,
+    tacos: Number(row.tacos) || 0,
+    progress: Number(row.progress) || 0,
   };
 }
 

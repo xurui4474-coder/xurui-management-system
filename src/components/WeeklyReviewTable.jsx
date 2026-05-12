@@ -39,7 +39,7 @@ export default function WeeklyReviewTable({ reviews, onAddReview, onUpdateReview
   return (
     <section>
       <PageHeader
-        title="每周代运营复盘计划"
+        title="周度复盘"
         subtitle="按周沉淀沟通重点、落实动作、交付物、复盘结论与风险问题"
         onAdd={() => onAddReview(emptyReview)}
         onExport={() => exportToCsv("周度复盘.csv", reviews)}
@@ -61,16 +61,23 @@ export default function WeeklyReviewTable({ reviews, onAddReview, onUpdateReview
               <tr key={item.id} className="border-t border-line align-top">
                 {columns.map(([key]) => (
                   <td key={key} className="min-w-36 px-2 py-2">
-                    <textarea className="table-input min-h-16 resize-y" value={item[key]} onChange={(event) => update(item.id, key, event.target.value)} />
+                    <textarea className="table-input min-h-16 resize-y" value={item[key] || ""} onChange={(event) => update(item.id, key, event.target.value)} />
                   </td>
                 ))}
                 <td className="px-3 py-3">
-                  <button className="rounded-md p-2 text-muted hover:bg-red-50 hover:text-red-700" onClick={() => onDeleteReview(item.id)}>
+                  <button className="rounded-md p-2 text-muted hover:bg-red-50 hover:text-red-700" onClick={() => onDeleteReview(item.id)} title="删除">
                     <Trash2 size={16} />
                   </button>
                 </td>
               </tr>
             ))}
+            {!reviews.length && (
+              <tr>
+                <td className="px-4 py-10 text-center text-muted" colSpan={columns.length + 1}>
+                  暂无复盘，点击右上角新增
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

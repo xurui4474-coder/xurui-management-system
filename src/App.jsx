@@ -161,8 +161,8 @@ function AppContent() {
 
   const addProduct = async (product) => {
     try {
-      await insertProduct(product);
-      refreshData();
+      const saved = await insertProduct(product);
+      setProducts((current) => [...current, saved]);
     } catch (err) {
       setError(err.message || "选品新增失败");
     }
@@ -190,8 +190,8 @@ function AppContent() {
 
   const addReview = async (review) => {
     try {
-      await insertReview(review);
-      refreshData();
+      const saved = await insertReview(review);
+      setReviews((current) => [...current, saved]);
     } catch (err) {
       setError(err.message || "复盘新增失败");
     }

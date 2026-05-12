@@ -50,8 +50,14 @@ export default function ProductTable({ products, onAddProduct, onUpdateProduct, 
         onAdd={() => onAddProduct(emptyProduct)}
         onExport={() => exportToCsv("选品总表.csv", filtered)}
       />
+
       <div className="mb-4 grid grid-cols-[1fr_180px] gap-3">
-        <input className="rounded-lg border border-line bg-paper px-3 py-2.5 text-sm outline-none focus:border-sage" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="搜索产品、供应商、备注" />
+        <input
+          className="rounded-lg border border-line bg-paper px-3 py-2.5 text-sm outline-none focus:border-sage"
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+          placeholder="搜索产品、供应商、备注"
+        />
         <select className="rounded-lg border border-line bg-paper px-3 text-sm outline-none focus:border-sage" value={platform} onChange={(event) => setPlatform(event.target.value)}>
           <option value="">全部平台</option>
           {platforms.map((item) => (
@@ -59,6 +65,7 @@ export default function ProductTable({ products, onAddProduct, onUpdateProduct, 
           ))}
         </select>
       </div>
+
       <div className="overflow-hidden rounded-lg border border-line bg-paper shadow-soft">
         <table className="w-full text-sm">
           <thead className="bg-cream text-left text-xs font-semibold text-muted">
@@ -73,19 +80,59 @@ export default function ProductTable({ products, onAddProduct, onUpdateProduct, 
           <tbody>
             {filtered.map((item) => (
               <tr key={item.id} className="border-t border-line">
-                <td className="px-2 py-2"><input className="table-input font-semibold" value={item.name} onChange={(event) => update(item.id, "name", event.target.value)} /></td>
-                <td className="px-2 py-2"><select className="table-select" value={item.platform} onChange={(event) => update(item.id, "platform", event.target.value)}>{platforms.map((p) => <option key={p}>{p}</option>)}</select></td>
-                <td className="px-2 py-2"><select className="table-select" value={item.unified} onChange={(event) => update(item.id, "unified", event.target.value)}><option>是</option><option>否</option></select></td>
-                <td className="px-2 py-2"><input className="table-input" value={item.supplier} onChange={(event) => update(item.id, "supplier", event.target.value)} /></td>
-                <td className="px-2 py-2"><input className="table-input" type="number" value={item.cost} onChange={(event) => update(item.id, "cost", event.target.value)} /></td>
-                <td className="px-2 py-2"><input className="table-input" type="number" value={item.price} onChange={(event) => update(item.id, "price", event.target.value)} /></td>
+                <td className="px-2 py-2">
+                  <input className="table-input font-semibold" value={item.name} onChange={(event) => update(item.id, "name", event.target.value)} />
+                </td>
+                <td className="px-2 py-2">
+                  <select className="table-select" value={item.platform} onChange={(event) => update(item.id, "platform", event.target.value)}>
+                    {platforms.map((p) => (
+                      <option key={p}>{p}</option>
+                    ))}
+                  </select>
+                </td>
+                <td className="px-2 py-2">
+                  <select className="table-select" value={item.unified} onChange={(event) => update(item.id, "unified", event.target.value)}>
+                    <option>是</option>
+                    <option>否</option>
+                  </select>
+                </td>
+                <td className="px-2 py-2">
+                  <input className="table-input" value={item.supplier} onChange={(event) => update(item.id, "supplier", event.target.value)} />
+                </td>
+                <td className="px-2 py-2">
+                  <input className="table-input" type="number" value={item.cost} onChange={(event) => update(item.id, "cost", event.target.value)} />
+                </td>
+                <td className="px-2 py-2">
+                  <input className="table-input" type="number" value={item.price} onChange={(event) => update(item.id, "price", event.target.value)} />
+                </td>
                 <td className="px-3 py-2 font-semibold">{item.margin}%</td>
-                <td className="px-2 py-2"><input className="table-input" value={item.listingStatus} onChange={(event) => update(item.id, "listingStatus", event.target.value)} /></td>
-                <td className="px-2 py-2"><select className="table-select" value={item.owner} onChange={(event) => update(item.id, "owner", event.target.value)}>{owners.map((owner) => <option key={owner}>{owner}</option>)}</select></td>
-                <td className="px-2 py-2"><input className="table-input" value={item.remark} onChange={(event) => update(item.id, "remark", event.target.value)} /></td>
-                <td className="px-3 py-2"><button className="rounded-md p-2 text-muted hover:bg-red-50 hover:text-red-700" onClick={() => onDeleteProduct(item.id)}><Trash2 size={16} /></button></td>
+                <td className="px-2 py-2">
+                  <input className="table-input" value={item.listingStatus} onChange={(event) => update(item.id, "listingStatus", event.target.value)} />
+                </td>
+                <td className="px-2 py-2">
+                  <select className="table-select" value={item.owner} onChange={(event) => update(item.id, "owner", event.target.value)}>
+                    {owners.map((owner) => (
+                      <option key={owner}>{owner}</option>
+                    ))}
+                  </select>
+                </td>
+                <td className="px-2 py-2">
+                  <input className="table-input" value={item.remark} onChange={(event) => update(item.id, "remark", event.target.value)} />
+                </td>
+                <td className="px-3 py-2">
+                  <button className="rounded-md p-2 text-muted hover:bg-red-50 hover:text-red-700" onClick={() => onDeleteProduct(item.id)} title="删除">
+                    <Trash2 size={16} />
+                  </button>
+                </td>
               </tr>
             ))}
+            {!filtered.length && (
+              <tr>
+                <td className="px-4 py-10 text-center text-muted" colSpan="11">
+                  暂无选品，点击右上角新增
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
